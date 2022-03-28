@@ -88,7 +88,7 @@ th {
     border: 2px solid #dddddd;
 }
 
-.td-icon {
+.td-center {
     text-align: center;
 }
 
@@ -116,6 +116,11 @@ input[type=range]::-moz-range-thumb {
 
 .label-form {
     width: 100px;
+}
+
+.imagePokemon{
+    width: 50px;
+    height: 50px;
 }
 
 @media only screen and (max-width: 675px) {

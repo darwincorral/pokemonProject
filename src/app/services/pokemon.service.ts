@@ -20,6 +20,11 @@ export class PokemonService {
   }
 
   editarPokemon(formData:PokemonForm,idPokemon:number){
-    return this.http.put(`${pokemon_url}/${idPokemon}:`,formData)
+    return this.http.put(`${pokemon_url}/${idPokemon}`,formData)
    }
+
+   
+  eliminarPokemon(idPokemon:number){
+    return this.http.delete(`${pokemon_url}/${idPokemon}`)
+  }
 }

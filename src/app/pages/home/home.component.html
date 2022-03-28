@@ -1,10 +1,10 @@
 <h2> Listado de Pokemon</h2>
 <div class="card-container">
     <div class="container-search">
-        <input type="text" class="searchInput" name="search" placeholder="Buscar">
+        <input type="text" class="searchInput" [(ngModel)]="filterTerm" name="search" placeholder="Buscar">
     </div>
     <div class="container-button-right">
-        <button class="btn" (click)="mostrarFormulario('Nuevo Pokemon')"><i class="fa fa-plus" ></i> Nuevo</button>
+        <button class="btn" (click)="mostrarFormulario(1)"><i class="fa fa-plus" ></i> Nuevo</button>
     </div>
 </div>
 <div class="card-table" *ngIf="!cargando && pokemons.length>0">
@@ -16,20 +16,20 @@
             <th>Defensa</th>
             <th>Acciones</th>
         </tr>
-        <tr *ngFor="let pokemon of pokemons">
+        <tr *ngFor="let pokemon of pokemons | filter:filterTerm">
             <td>{{pokemon.name}}</td>
-            <td>{{pokemon.image}}</td>
+            <td class="td-center"><img [src]="pokemon.image==''?'assets/notimage.png':pokemon.image" class="imagePokemon"></td>
             <td>{{pokemon.attack}}</td>
             <td>{{pokemon.defense}}</td>
-            <td class="td-icon">
-                <i class='fas fa-pencil-alt icon-action' (click)="editarPokemon(pokemon.id)"></i>
-                <i class='fas fa-trash-alt icon-action'></i>
+            <td class="td-center">
+                <i class='fas fa-pencil-alt icon-action' (click)="cargarPokemon(pokemon)"></i>
+                <i class='fas fa-trash-alt icon-action' (click)="eliminarPokemon(pokemon.id)"></i>
             </td>
         </tr>
     </table>
 </div>
 
-<div class="card-form" *ngIf="nuevoPokemon">
+<div class="card-form" *ngIf="cardPokemon">
     <form [formGroup]="pokemonForm" (ngSubmit)="crearPokemon()">
         <p class="title-form"><strong>{{tituloFormulario}}</strong></p>
         <div class="card-columns">
@@ -53,7 +53,7 @@
                 <button class="btn" [disabled]="pokemonForm.invalid"><i class="fas fa-save" ></i> Guardar</button>
             </div>
             <div class="container-button-center">
-                <button class="btn" (click)="nuevoPokemon=false"><i class="fas fa-times"></i> Cancelar</button>
+                <button class="btn" (click)="cardPokemon=false"><i class="fas fa-times"></i> Cancelar</button>
             </div>
         </div>
     </form>

@@ -1,4 +1,5 @@
 export interface PokemonForm{
+     id:number,
      name: string,
      image:string,	
      attack:string,	
