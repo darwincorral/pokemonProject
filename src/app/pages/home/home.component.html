@@ -1,0 +1,60 @@
+<h2> Listado de Pokemon</h2>
+<div class="card-container">
+    <div class="container-search">
+        <input type="text" class="searchInput" name="search" placeholder="Buscar">
+    </div>
+    <div class="container-button-right">
+        <button class="btn" (click)="mostrarFormulario('Nuevo Pokemon')"><i class="fa fa-plus" ></i> Nuevo</button>
+    </div>
+</div>
+<div class="card-table" *ngIf="!cargando && pokemons.length>0">
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Imagen</th>
+            <th>Ataque</th>
+            <th>Defensa</th>
+            <th>Acciones</th>
+        </tr>
+        <tr *ngFor="let pokemon of pokemons">
+            <td>{{pokemon.name}}</td>
+            <td>{{pokemon.image}}</td>
+            <td>{{pokemon.attack}}</td>
+            <td>{{pokemon.defense}}</td>
+            <td class="td-icon">
+                <i class='fas fa-pencil-alt icon-action' (click)="editarPokemon(pokemon.id)"></i>
+                <i class='fas fa-trash-alt icon-action'></i>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="card-form" *ngIf="nuevoPokemon">
+    <form [formGroup]="pokemonForm" (ngSubmit)="crearPokemon()">
+        <p class="title-form"><strong>{{tituloFormulario}}</strong></p>
+        <div class="card-columns">
+            <div class="form-align">
+                <strong class="label-form">Nombre:</strong> <input type="text" class="formInput" formControlName="name" required>
+            </div>
+            <div class="form-align">
+                <strong class="label-form">Ataque:</strong> <input class="slider" type="range" min="0" max="100" value="50" formControlName="attack">
+            </div>
+        </div>
+        <div class="card-columns">
+            <div class="form-align">
+                <strong class="label-form">Imagen:</strong> <input type="text" class="formInput" name="search" formControlName="image">
+            </div>
+            <div class="form-align">
+                <strong class="label-form">Defensa:</strong><input class="slider" type="range" min="0" max="100" value="50" formControlName="defense">
+            </div>
+        </div>
+        <div class="card-container">
+            <div class="container-button-center">
+                <button class="btn" [disabled]="pokemonForm.invalid"><i class="fas fa-save" ></i> Guardar</button>
+            </div>
+            <div class="container-button-center">
+                <button class="btn" (click)="nuevoPokemon=false"><i class="fas fa-times"></i> Cancelar</button>
+            </div>
+        </div>
+    </form>
+</div>
